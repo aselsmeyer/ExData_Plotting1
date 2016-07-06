@@ -24,6 +24,8 @@ dateTime <- paste(powerConsumption$Date, powerConsumption$Time)
 powerConsumption$DateTime <- as.POSIXct(dateTime)
 
 # Setup and Create Plot 4
+png("plot4.png", height = 480, width = 480)
+
 par(mfcol = c(2,2))
 
 # Upper left hand plot
@@ -38,7 +40,7 @@ with(powerConsumption, {
         lines(DateTime, Sub_metering_3, col = "blue")
 })
 
-legend("topright", col = c("black", "red", "blue"), lty = 1, lwd = 1, bty = "n",
+legend("topright", col = c("black", "red", "blue"), lty = 1, bty = "n",
        legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3") )
 
 # Upper right hand plot
@@ -49,7 +51,6 @@ plot(powerConsumption$DateTime, powerConsumption$Voltage, type = "l",
 plot(powerConsumption$DateTime, powerConsumption$Global_reactive_power, type = "l",
       xlab = "datetime", ylab = "Global_reactive_power")
 
-# Create PNG file
-dev.copy(png, file = "plot4.png")
+
 dev.off()
 
