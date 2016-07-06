@@ -8,11 +8,17 @@ download.file(fileURL, f, method = "curl")
 dateDownloaded <- date()
 
 # Unzip the file
-temp <- unzip(f)
-files <- list.files(getwd())
-file <- paste(f)
+unzip(f, exdir = ".")
 
 # Read the dataset
 
-powerConsumption <- read.table("household_power_consumption.txt")
-#powerConsumption <- subset(powerConsumption, Date == (01/02/2007 : 02/02/2007))
+powerConsumptionFull <- read.table("household_power_consumption.txt", header = TRUE, na.strings = "?", sep = ";")
+
+powerConsumption <- powerConsumptionFull[(powerConsumptionFull$Date == "1/2/2007" | powerConsumptionFull$Date == "2/2/2007"), ]
+
+# Create Plot 1
+hist(powerConsumption$Global_active_power, col = "red", main = "Global Active Power", xlab = "Global Active Power (kilowatts)", ylab = "Frequency")
+
+# Create PNG File
+dev.copy(png, file = "plot1.png")
+dev.off()
